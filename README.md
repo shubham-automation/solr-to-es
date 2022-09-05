@@ -30,9 +30,9 @@ solr-to-es http://localhost:8983/solr/<<collection_name>> http://localhost:9200 
 
 `doc_type` is the type of document Elasticsearch should assume you are importing.
 
-`--solr-username` for authentication in solr
+`--solr_username` for authentication in solr
 
-`--solr-password` for authentication in solr
+`--solr_password` for authentication in solr
 
 `--solr-query` defaults to `*:*`
 

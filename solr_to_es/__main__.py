@@ -36,11 +36,11 @@ def parse_args():
     parser.add_argument('solr_url',
                         type=str)
 
-    parser.add_argument('--solr-username',
+    parser.add_argument('--solr_username',
                         type=str,
                         default='')
 
-    parser.add_argument('--solr-password',
+    parser.add_argument('--solr_password',
                         type=str,
                         default='')
 
@@ -108,8 +108,8 @@ def main():
         solr_conn = pysolr.Solr(args['solr_url'].rsplit('/', 1)[0], search_handler=args['solr_url'].rsplit('/', 1)[-1], auth=("admin","admin"))
         solr_fields = args['solr_fields'].split() if args['solr_fields'] else ''
         solr_filter = args['solr_filter'] if args['solr_filter'] else ''
-        if args['solr-username']:
-          solr_itr = SlowSolrDocs(args['solr_url'], args['solr_query'], args['solr-username'], args['solr-password'], rows=args['rows_per_page'], fl=solr_fields, fq=solr_filter)
+        if args['solr_username']:
+          solr_itr = SlowSolrDocs(args['solr_url'], args['solr_query'], args['solr_username'], args['solr_password'], rows=args['rows_per_page'], fl=solr_fields, fq=solr_filter)
         else:
           solr_itr = SlowSolrDocs(args['solr_url'], args['solr_query'], rows=args['rows_per_page'], fl=solr_fields, fq=solr_filter)
         es_actions = SolrEsWrapperIter(solr_itr, args['elasticsearch_index'], args['id_field'])

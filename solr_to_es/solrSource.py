@@ -66,12 +66,12 @@ class _SolrPagingIter:
         See graph here:
         http://opensourceconnections.com/blog/2014/07/13/reindexing-collections-with-solrs-cursor-support/
         """
-    def __init__(self, solr_url,query,solr-username,solr-password, **options):
+    def __init__(self, solr_url,query,solr_username,solr_password, **options):
         self.current = 0
         self.query = query
         self.solr_url = solr_url
-        self.solr-username = solr-username
-        self.solr-password = solr-password
+        self.solr_username = solr_username
+        self.solr_password = solr_password
         
         try:
             self.rows = options['rows']
@@ -90,7 +90,7 @@ class _SolrPagingIter:
         self.docs = None
 
     def __iter__(self):
-        r = requests.get(self.solr_url+'/select?q=' + self.query + '&wt=json&rows=0', auth = HTTPBasicAuth(self.solr-username, self.solr-password))
+        r = requests.get(self.solr_url+'/select?q=' + self.query + '&wt=json&rows=0', auth = HTTPBasicAuth(self.solr_username, self.solr_password))
         response = r.json()
         self.max = response['response']['numFound']
         print("Found %s docs" % self.max)
@@ -108,7 +108,7 @@ class _SolrPagingIter:
                 url = self.solr_url+ '/select?q=' + self.query + '&wt=json&rows=' + str(self.rows) + "&start=" + str(((self.current - 1) * self.rows))
                 if self.fl:
                     url = url + "&fl=" + (','.join(self.fl))
-                r = requests.get(url, auth = HTTPBasicAuth(self.solr-username, self.solr-password))
+                r = requests.get(url, auth = HTTPBasicAuth(self.solr_username, self.solr_password))
                 response = r.json()
                 self.docs = iter(response['response']['docs'])
                 return next(self.docs)
